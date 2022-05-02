@@ -12,16 +12,7 @@ class Tile extends React.Component {
             imgAlt: ''
         };
     }
-
-
-    showMine() {
-        this.setState({
-            imgSrc: mine,
-            imgAlt: "mine"
-        });
-    }
     
-
     render() {
         return (
             <button 
