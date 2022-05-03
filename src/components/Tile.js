@@ -3,7 +3,7 @@ import './Tile.css';
 import mine from './mine.jpg';
 
 
-//NOTE: use {this.props.id} to get id
+//NOTE: use {this.props.x} to get x value
 
 class Tile extends React.Component {
 
@@ -22,6 +22,7 @@ class Tile extends React.Component {
                 className="tile" 
                 onClick={() => this.setState({imgSrc: mine, imgAlt: "mine"})}>
                     <img src={this.state.imgSrc} alt={this.state.imgAlt} />
+                {this.props.value}
             </button>
         );
     }
