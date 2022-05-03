@@ -2,6 +2,9 @@ import React from 'react';
 import './Tile.css';
 import mine from './mine.jpg';
 
+
+//NOTE: use {this.props.id} to get id
+
 class Tile extends React.Component {
 
     
@@ -9,7 +12,7 @@ class Tile extends React.Component {
         super(props);
         this.state = {
             imgSrc: null,
-            imgAlt: ''
+            imgAlt: '',
         };
     }
     
