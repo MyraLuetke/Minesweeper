@@ -13,16 +13,27 @@ class Tile extends React.Component {
         this.state = {
             imgSrc: null,
             imgAlt: '',
+            value: '',
         };
+    }
+
+
+    tileClick = () => {
+        if (this.props.value < 0) {
+            this.setState({imgSrc: mine, imgAlt: "mine"});
+        }
+        else {
+            this.setState({value: this.props.value})
+        }
     }
     
     render() {
         return (
             <button 
                 className="tile" 
-                onClick={() => this.setState({imgSrc: mine, imgAlt: "mine"})}>
+                onClick={this.tileClick}>
                     <img src={this.state.imgSrc} alt={this.state.imgAlt} />
-                {this.props.value}
+                    {this.state.value}
             </button>
         );
     }
