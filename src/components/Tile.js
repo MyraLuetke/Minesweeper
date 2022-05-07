@@ -21,7 +21,7 @@ class Tile extends React.Component {
 
     tileClick = (e) => {
         //left click: unveil tile
-        if (e.type === "click") {
+        if (e.type === "click" && this.state.imgAlt === '') {
             if (this.props.value < 0) {
                 this.setState({value: '', imgSrc: mine, imgAlt: "mine"});
             }
