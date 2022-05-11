@@ -27,7 +27,7 @@ class Tile extends React.Component {
         return (
             <button
                 className= {this.props.revealed[this.props.x][this.props.y] ? "revealed tile" : "tile"}
-                    onClick={() => this.props.handleReveal(this.props.x,this.props.y)}
+                    onClick={(e) => {this.state.flagged ? e.preventDefault() : this.props.handleReveal(this.props.x,this.props.y)}}
                     onContextMenu={this.handleFlag}>
                         <img src={this.props.revealed[this.props.x][this.props.y] && this.props.value === -1 ? mine : (this.state.flagged ? flag : '')} 
                         alt={this.props.revealed[this.props.x][this.props.y] && this.props.value === -1 ? 'mine' : (this.state.flagged ? 'flag' : '')} />
