@@ -1,7 +1,7 @@
 import React from 'react';
 import './Tile.css';
 import mine from './mine.jpg';
-//import flag from './flag.png';
+import flag from './flag.png';
 
 
 
@@ -11,38 +11,27 @@ class Tile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            imgSrc: null,
-            imgAlt: '',
-            value: '',
+            flagged : false
         };
     }
 
-    /*
-        //right click: mark or unmark tile
-        else if (e.type === "contextmenu") {
-            e.preventDefault();
-            if (this.state.value === '' && this.state.imgAlt !== "mine") {
-                if (this.state.imgAlt !== '') {
-                    this.setState({imgSrc: null, imgAlt: ''});
-                }
-                else {
-                    this.setState({imgSrc: flag, imgAlt: "flag"});
-                }
-            }
+    handleFlag = (e) => {
+        e.preventDefault();
+        if (this.props.revealed[this.props.x][this.props.y] === false) {
+            this.setState({flagged: !this.state.flagged});
         }
     }
     
     
-    onContextMenu={this.tileClick}>
-    */
-    
     render() {
         return (
             <button
-                className="tile"
-                    onClick={() => this.props.handleReveal(this.props.x,this.props.y)}>
-                    <img src={this.props.revealed[this.props.x][this.props.y] === true && this.props.value === -1 ? mine : ''} alt={this.state.imgAlt} />
-                    {this.props.revealed[this.props.x][this.props.y] === true ? this.props.value : ''}
+                className= {this.props.revealed[this.props.x][this.props.y] ? "revealed tile" : "tile"}
+                    onClick={() => this.props.handleReveal(this.props.x,this.props.y)}
+                    onContextMenu={this.handleFlag}>
+                        <img src={this.props.revealed[this.props.x][this.props.y] && this.props.value === -1 ? mine : (this.state.flagged ? flag : '')} 
+                        alt={this.props.revealed[this.props.x][this.props.y] && this.props.value === -1 ? 'mine' : (this.state.flagged ? 'flag' : '')} />
+                        {this.props.revealed[this.props.x][this.props.y] && this.props.value > 0 ? this.props.value : ''}
             </button>
         );
     }
