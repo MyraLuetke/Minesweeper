@@ -46,7 +46,11 @@ class Board extends React.Component {
     
         if (isZero) {
             await this.handleReveal(x - 1, y, visited);
+            await this.handleReveal(x - 1, y - 1, visited);
+            await this.handleReveal(x - 1, y + 1, visited);
             await this.handleReveal(x + 1, y, visited);
+            await this.handleReveal(x + 1, y - 1, visited);
+            await this.handleReveal(x + 1, y + 1, visited);
             await this.handleReveal(x, y - 1, visited);
             await this.handleReveal(x, y + 1, visited);
         }
