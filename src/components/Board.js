@@ -67,9 +67,9 @@ class Board extends React.Component {
         }
 
         return (
-            <div>
+            <div className='Minesweeper'>
                 {all_tiles.map((value, index) => {
-                    return <div key={'Row ' + index}>{value}</div>
+                    return <div key={'row_' + index}>{value}</div>
                 })}
                 
             </div>
