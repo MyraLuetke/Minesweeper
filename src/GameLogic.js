@@ -4,7 +4,11 @@ class GameLogic {
         this.height = height;
         this.width = width;
         this.num_mines = mines;
-        this.tile_values = [];
+        this.tile_values = Array.from(
+            {length: height},
+            () => new Array(width).fill(0)
+        );
+        this.in_game = false;
     }
 
     surroundingMineCount(row, column, tile_values) {
@@ -22,8 +26,7 @@ class GameLogic {
         return mine_count;
     }
 
-    //createGame(start_row, start_column)
-    createGame() {
+    createGame(start_row, start_column) {
 
         var mines = this.num_mines;
         var tile_values = [];
@@ -40,8 +43,7 @@ class GameLogic {
             var row = Math.floor(Math.random() * this.height);
             var column = Math.floor(Math.random() * this.width);
 
-            // if (tile_values[row][column] == undefined && row != start_row && column != start_column)
-            if (tile_values[row][column] === 0) {
+            if (tile_values[row][column] === 0 && row !== start_row && column !== start_column) {
                 tile_values[row][column] = -1;
                 mines -= 1;
             }

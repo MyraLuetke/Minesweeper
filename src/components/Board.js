@@ -8,7 +8,6 @@ class Board extends React.Component {
         super(props);
         
         game_logic.initalizeGame(8,8,10);
-        game_logic.createGame();
 
         this.state = {
             height: 8,
@@ -29,6 +28,11 @@ class Board extends React.Component {
 
     handleReveal = async (x, y, visited = new Set()) => {
         const tileKey = x + '_' + y;
+
+        if (game_logic.in_game === false) {
+            game_logic.createGame(x,y);
+            game_logic.in_game = true;
+        }
 
         // if out of bounds, or if visited before, don't do anything
         if (x < 0 || x >= this.state.height || y < 0 || y >= this.state.width || visited.has(tileKey)) return;
