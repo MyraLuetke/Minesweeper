@@ -34,10 +34,21 @@ class Board extends React.Component {
             game_logic.in_game = true;
         }
 
-        // if out of bounds, or if visited before, don't do anything
+        // if tile is out of bounds, or if visited before, don't do anything
         if (x < 0 || x >= this.state.height || y < 0 || y >= this.state.width || visited.has(tileKey)) return;
-        visited.add(tileKey);
-        const isZero = game_logic.tile_values[x][y] === 0;
+
+        // if tile is mine, reveal all mines
+        const isMine = game_logic.tile_values[x][y] === -1;
+        if (isMine) {
+            this.setState({
+                revealed: this.state.revealed.map((row, i) => row.map(
+                    (tileState, j) => game_logic.tile_values[i][j] === -1 ? true : tileState
+                ))
+            });
+            return;
+        }
+ 
+        // else reveal tile
         await this.setStateSync({
             revealed: this.state.revealed.map(
                 (row, i) => i !== x
@@ -47,6 +58,10 @@ class Board extends React.Component {
                     )
             )
         });
+
+        // if tile has a value of 0, reveal neighbouring tiles
+        const isZero = game_logic.tile_values[x][y] === 0;
+        visited.add(tileKey);
     
         if (isZero) {
             await this.handleReveal(x - 1, y, visited);
