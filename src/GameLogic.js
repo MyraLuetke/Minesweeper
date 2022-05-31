@@ -8,7 +8,6 @@ class GameLogic {
             {length: height},
             () => new Array(width).fill(0)
         );
-        this.in_game = false;
     }
 
     surroundingMineCount(row, column, tile_values) {
@@ -49,7 +48,6 @@ class GameLogic {
             }
         }
 
-
         for (var x=0; x < this.height; x++) {
             for (var y=0; y < this.width; y++) {
                 if (tile_values[x][y] !== -1) {
@@ -59,6 +57,13 @@ class GameLogic {
         }
 
         this.tile_values = tile_values;
+    }
+
+    resetGame() {
+        this.tile_values = Array.from(
+            {length: this.height},
+            () => new Array(this.width).fill(0)
+        );
     }
 
 

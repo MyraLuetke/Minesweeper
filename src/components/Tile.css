@@ -13,6 +13,10 @@
     width: 34px;
 }
 
+.tile:disabled {
+    background: #eee;
+}
+
 .revealed {
     background: #ccc;
 }

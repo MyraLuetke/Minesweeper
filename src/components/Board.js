@@ -16,7 +16,9 @@ class Board extends React.Component {
             revealed: Array.from(
                 {length: 8},
                 () => new Array(8).fill(false)
-            )
+            ),
+            in_game: false,
+            end_game: false
         }
     }
 
@@ -29,9 +31,9 @@ class Board extends React.Component {
     handleReveal = async (x, y, visited = new Set()) => {
         const tileKey = x + '_' + y;
 
-        if (game_logic.in_game === false) {
+        if (this.state.in_game === false) {
             game_logic.createGame(x,y);
-            game_logic.in_game = true;
+            this.state.in_game = true;
         }
 
         // if tile is out of bounds, or if visited before, don't do anything
@@ -43,7 +45,8 @@ class Board extends React.Component {
             this.setState({
                 revealed: this.state.revealed.map((row, i) => row.map(
                     (tileState, j) => game_logic.tile_values[i][j] === -1 ? true : tileState
-                ))
+                )),
+                end_game: true
             });
             return;
         }
@@ -81,7 +84,7 @@ class Board extends React.Component {
         for (var i = 0; i < this.state.height; i++) {
             var row_tiles = [];
             for (var j = 0; j < this.state.width; j++) 
-                row_tiles.push(<Tile revealed = {this.state.revealed} handleReveal = {this.handleReveal} key={i + '_' + j} value={game_logic.tile_values[i][j]} x={i} y={j} />)
+                row_tiles.push(<Tile end_game = {this.state.end_game} revealed = {this.state.revealed} handleReveal = {this.handleReveal} key={i + '_' + j} value={game_logic.tile_values[i][j]} x={i} y={j} />)
             all_tiles[i] = row_tiles;
         }
 

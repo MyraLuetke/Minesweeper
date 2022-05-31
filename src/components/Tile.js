@@ -26,11 +26,12 @@ class Tile extends React.Component {
     render() {
         return (
             <button
-                className= {this.props.revealed[this.props.x][this.props.y] ? "revealed tile" : "tile"}
+                disabled= {this.props.end_game && !this.props.revealed[this.props.x][this.props.y]}
+                className= {!this.state.flagged && this.props.revealed[this.props.x][this.props.y] ? "revealed tile" : "tile"}
                     onClick={(e) => {this.state.flagged ? e.preventDefault() : this.props.handleReveal(this.props.x,this.props.y)}}
-                    onContextMenu={this.handleFlag}>
-                        <img src={this.props.revealed[this.props.x][this.props.y] && this.props.value === -1 ? mine : (this.state.flagged ? flag : '')} 
-                        alt={this.props.revealed[this.props.x][this.props.y] && this.props.value === -1 ? 'mine' : (this.state.flagged ? 'flag' : '')} />
+                    onContextMenu={(e) => {!this.props.end_game ? this.handleFlag(e) : e.preventDefault()}}>
+                        <img src={this.state.flagged ? flag : (this.props.revealed[this.props.x][this.props.y] && this.props.value === -1 ? mine : '')} 
+                        alt={this.state.flagged ? 'flag' : (this.props.revealed[this.props.x][this.props.y] && this.props.value === -1 ? 'mine' : '')} />
                         {this.props.revealed[this.props.x][this.props.y] && this.props.value > 0 ? this.props.value : ''}
             </button>
         );
