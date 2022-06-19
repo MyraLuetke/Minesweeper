@@ -62,6 +62,13 @@ class Board extends React.Component {
             )
         });
 
+        //check if game is won
+        const isWon = this.state.revealed.reduce((prev_row, row, i) => prev_row && row.reduce((prev_val, val, j) => game_logic.tile_values[i][j] === -1 ? prev_val && true : prev_val && val, true), true);
+        if (isWon) {
+            this.setState({end_game: true});
+            return;
+        }
+
         // if tile has a value of 0, reveal neighbouring tiles
         const isZero = game_logic.tile_values[x][y] === 0;
         visited.add(tileKey);
